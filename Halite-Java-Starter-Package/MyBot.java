@@ -38,11 +38,7 @@ public class MyBot {
     private static Direction getDirection(GameMap gameMap, int myID, Site site, Location location) {
         Direction direction = Direction.STILL;
         Integer maxGain = getPoints(gameMap, myID, site, location, Direction.STILL);
-        Integer currGain = getPoints(gameMap, myID, site, location, Direction.EAST);
-        if (maxGain < currGain) {
-            direction = Direction.EAST;
-            maxGain = currGain;
-        }
+        Integer currGain = -1000;
         currGain = getPoints(gameMap, myID, site, location, Direction.NORTH);
         if (maxGain < currGain) {
             direction = Direction.NORTH;
@@ -51,6 +47,11 @@ public class MyBot {
         currGain = getPoints(gameMap, myID, site, location, Direction.SOUTH);
         if (maxGain < currGain) {
             direction = Direction.SOUTH;
+            maxGain = currGain;
+        }
+        currGain = getPoints(gameMap, myID, site, location, Direction.EAST);
+        if (maxGain < currGain) {
+            direction = Direction.EAST;
             maxGain = currGain;
         }
         currGain = getPoints(gameMap, myID, site, location, Direction.WEST);
