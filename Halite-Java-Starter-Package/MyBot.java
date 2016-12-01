@@ -4,6 +4,8 @@ public class MyBot {
     private static final int COEFF_ATTACK = 50;
     private static final int COEFF_DEFENSE = 20;
     private static final int COEFF_POPULATION = 10;
+    private static final Direction[] bigDirection = {Direction.WEST, Direction.SOUTH, Direction.EAST, Direction.NORTH};
+    private static final Direction[] smallDirection = {Direction.NORTH, Direction.SOUTH, Direction.EAST, Direction.WEST};
 
     public static void main(String[] args) throws java.io.IOException {
         InitPackage iPackage = Networking.getInit();
@@ -39,26 +41,25 @@ public class MyBot {
         Direction direction = Direction.STILL;
         Integer maxGain = getPoints(gameMap, myID, site, location, Direction.STILL);
         Integer currGain = -1000;
-        currGain = getPoints(gameMap, myID, site, location, Direction.NORTH);
-        if (maxGain < currGain) {
-            direction = Direction.NORTH;
-            maxGain = currGain;
+
+        if (site.strength > 150) {
+            for (Direction currDirection : bigDirection) {
+                currGain = getPoints(gameMap, myID, site, location, currDirection);
+                if (maxGain < currGain) {
+                    direction = currDirection;
+                    maxGain = currGain;
+                }
+            }
+        } else {
+            for (Direction currDirection : smallDirection) {
+                currGain = getPoints(gameMap, myID, site, location, currDirection);
+                if (maxGain < currGain) {
+                    direction = currDirection;
+                    maxGain = currGain;
+                }
+            }
         }
-        currGain = getPoints(gameMap, myID, site, location, Direction.SOUTH);
-        if (maxGain < currGain) {
-            direction = Direction.SOUTH;
-            maxGain = currGain;
-        }
-        currGain = getPoints(gameMap, myID, site, location, Direction.EAST);
-        if (maxGain < currGain) {
-            direction = Direction.EAST;
-            maxGain = currGain;
-        }
-        currGain = getPoints(gameMap, myID, site, location, Direction.WEST);
-        if (maxGain < currGain) {
-            direction = Direction.WEST;
-            maxGain = currGain;
-        }
+
         return direction;
     }
 
@@ -79,8 +80,14 @@ public class MyBot {
                 }
             }
         }
-        if (strength > 255) {
-            overStrength = opposite.strength * COEFF_ATTACK * -1;
+        if (site.strength > 240) {
+            if (myID != opposite.owner) {
+                overStrength = opposite.strength * COEFF_ATTACK;
+            }
+        } else {
+            if (strength > 255) {
+                overStrength = opposite.strength * COEFF_ATTACK * -1;
+            }
         }
         return strength + production + population + overStrength;
     }
