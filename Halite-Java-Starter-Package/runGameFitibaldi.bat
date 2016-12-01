@@ -1,5 +1,5 @@
-javac Fitibaldi.java
-javac RandomBot.java
 javac MyBot.java
+javac RandomBot.java
+javac MyBotOrig.java
 
-.\halite.exe -d "%1 %2" "java Fitibaldi" "java RandomBot" "java MyBot"
+.\halite.exe -d "%1 %2" "java MyBot" "java RandomBot" "java MyBotOrig"
