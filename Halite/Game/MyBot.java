@@ -7,8 +7,10 @@ public class MyBot {
     private static final int COEFF_NEGATIVE = -1;
     private static final int MINIMUM_STRENGTH = 5;
     private static final int MAXIMUM_STRENGTH = 200;
-    private static final Direction[] bigDirection = {Direction.WEST, Direction.SOUTH, Direction.EAST, Direction.NORTH};
-    private static final Direction[] smallDirection = {Direction.NORTH, Direction.SOUTH, Direction.EAST, Direction.WEST};
+    private static final Direction[] bigDirection = {
+        Direction.WEST, Direction.SOUTH, Direction.EAST, Direction.NORTH };
+    private static final Direction[] smallDirection = {
+        Direction.NORTH, Direction.SOUTH, Direction.EAST, Direction.WEST };
 
     public static void main(String[] args) throws java.io.IOException {
         InitPackage iPackage = Networking.getInit();
@@ -42,16 +44,16 @@ public class MyBot {
 
     private static Direction getDirection(GameMap gameMap, int myID, Site site, Location location) {
         //check the situation
-        ArrayList<Neighbor> neighbours = new ArrayList<Neighbor>();
-        neighbours.add(new Neighbor(Direction.STILL, false, site.strength, site.production));
+        ArrayList<Neighbor> neighbors = new ArrayList<Neighbor>();
+        neighbors.add(new Neighbor(Direction.STILL, false, site.strength, site.production));
         Direction[] directionArray = bigDirection;
         for (Direction currDirection : directionArray) {
-            neighbours.add(getNeighbor(gameMap, myID, location, currDirection));
+            neighbors.add(getNeighbor(gameMap, myID, location, currDirection));
         }
 
-        Decision siteDecision = getDecision(neighbours);
+        Decision siteDecision = getDecision(neighbors);
 
-        return getDirection(siteDecision, neighbours);
+        return getDirection(siteDecision, neighbors);
     }
 
     private static Neighbor getNeighbor(GameMap gameMap, int myID, Location location, Direction direction) {
@@ -78,46 +80,61 @@ public class MyBot {
         }
     }
 
-    private static Direction getDirection (Decision siteDecision, ArrayList<Neighbor> neighbours) {
+    private static Direction getDirection(Decision siteDecision, ArrayList<Neighbor> neighbors) {
         if (Decision.INTERNAL.equals(siteDecision)) {
-            return getInternalDirection(neighbours);
+            return getInternalDirection(neighbors);
         } else if (Decision.SIDE.equals(siteDecision)) {
-            return getSideDirection(neighbours);
+            return getSideDirection(neighbors);
         } else if (Decision.CORNER.equals(siteDecision)) {
-            return getCornerDirection(neighbours);
+            return getCornerDirection(neighbors);
         } else if (Decision.ATTACKED.equals(siteDecision)) {
-            return getAttackedDirection(neighbours);
+            return getAttackedDirection(neighbors);
         }
         return Direction.STILL;
     }
 
-    private static Direction getInternalDirection(ArrayList<Neighbor> neighbours) {
+    private static Direction getInternalDirection(ArrayList<Neighbor> neighbors) {
         int maxProduction = -1;
         Direction dir = Direction.STILL;
-        for (Neighbor n : neighbours) {
+        for (Neighbor n : neighbors) {
             if (maxProduction < n.strength + n.production) {
-                if (Direction.STILL.equals(n.direction) && n.strength > MAXIMUM_STRENGTH) {
-                    continue;
+                if (!Direction.STILL.equals(n.direction) && n.strength < MAXIMUM_STRENGTH) {
+                    maxProduction = n.strength + n.production;
+                    dir = n.direction;
                 }
-                maxProduction = n.strength + n.production;
-                dir = n.direction;
             }
         }
         return dir;
     }
 
-    private static Direction getSideDirection(ArrayList<Neighbor> neighbours) {
+    private static Direction getSideDirection(ArrayList<Neighbor> neighbors) {
         return Direction.STILL;
     }
 
-    private static Direction getCornerDirection(ArrayList<Neighbor> neighbours) {
+    private static Direction getCornerDirection(ArrayList<Neighbor> neighbors) {
         return Direction.STILL;
     }
 
-    private static Direction getAttackedDirection(ArrayList<Neighbor> neighbours) {
-        int maxAttack = -1;
-
-        return Direction.STILL;
+    private static Direction getAttackedDirection(ArrayList<Neighbor> neighbors) {
+        Direction attackDirection = Direction.STILL;
+        Integer strength = 0;
+        int maxAttack = -1000000;
+        int maxDefense = 0;
+        Neighbor site =  neighbors.get(0);
+        for (Neighbor opposite : neighbors) {
+            if (opposite.enemy) {
+                strength = (opposite.strength * COEFF_NEGATIVE + site.strength) * COEFF_ATTACK;
+                if (strength > 0) {
+                    strength += COEFF_POPULATION;
+                    strength += (strength + opposite.production) * COEFF_DEFENSE;
+                }
+                if (maxAttack < strength) {
+                    maxAttack = strength;
+                    attackDirection = opposite.direction;
+                }
+            }
+        }
+        return attackDirection;
     }
 
     private static Integer getPoints(GameMap gameMap, int myID, Site site, Location location, Direction direction) {
