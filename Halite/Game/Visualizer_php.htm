@@ -1,0 +1,90 @@
+﻿<!DOCTYPE HTML>
+<!-- saved from url=(0038)https://halite.io/local_visualizer.php -->
+<!DOCTYPE html PUBLIC "" ""><HTML><HEAD><META content="IE=11.0000" 
+http-equiv="X-UA-Compatible">
+     
+<META charset="utf-8"> 
+<META http-equiv="X-UA-Compatible" content="IE=edge"> 
+<META name="viewport" content="width=device-width, initial-scale=1"> 
+<META name="google-site-verification" content="UzLAOvN92N2iaw_7HcFXSOc_M-WIe3KFXaozuaNsZo4"> 
+    <TITLE>Visualizer</TITLE>     <LINK href="Visualizer_php_files/bootstrap.min.css" 
+rel="stylesheet">     <LINK href="Visualizer_php_files/general.css" rel="stylesheet"> 
+<META name="GENERATOR" content="MSHTML 11.00.9600.16663"></HEAD> 
+<BODY>
+<DIV class="container" id="container"><NAV class="navbar navbar-default" id="navvy">
+<DIV class="container-fluid">
+<DIV class="navbar-header"><BUTTON class="navbar-toggle collapsed" 
+aria-expanded="false" aria-controls="navbar" type="button" data-toggle="collapse" 
+data-target="#navbar"><SPAN class="sr-only">Toggle navigation</SPAN>             
+    <SPAN class="icon-bar"></SPAN><SPAN class="icon-bar"></SPAN><SPAN class="icon-bar"></SPAN></BUTTON> 
+            <A class="navbar-brand" style="padding: 10px;" href="https://halite.io/index.php"><IMG 
+style="height: 100%;" src="Visualizer_php_files/full_logo.png"></A>         
+</DIV>
+<DIV class="navbar-collapse collapse" id="navbar">
+<UL class="nav navbar-nav navbar-right loggedOut" id="loginNav">
+  <UL class="nav navbar-nav">
+    <LI><A href="https://halite.io/basics_quickstart.php">Learn</A></LI>
+    <LI><A href="https://halite.io/downloads.php">Download</A></LI>
+    <LI><A href="https://halite.io/leaderboard.php">Rankings</A></LI>
+    <LI><A href="https://halite.io/local_visualizer.php">Visualize</A></LI>
+    <LI><A href="http://forums.halite.io/">Forums</A></LI>
+    <LI><A href="https://halite.io/about.php">About</A></LI>
+    <LI><A href="https://github.com/login/oauth/authorize?scope=user:email&amp;client_id=2b713362b2f331e1dde3">Login 
+    with Github</A></LI></UL></UL>             
+<FORM id="submitForm">
+<UL class="nav navbar-nav navbar-right loggedIn" id="logoutNav">
+  <LI><A href="https://halite.io/basics_quickstart.php">Learn</A></LI>
+  <LI><A href="https://halite.io/downloads.php">Download</A></LI>
+  <LI><A href="https://halite.io/leaderboard.php">Rankings</A></LI>
+  <LI><A href="https://halite.io/local_visualizer.php">Visualize</A></LI>
+  <LI><A href="http://forums.halite.io/">Forums</A></LI>
+  <LI><A href="https://halite.io/about.php">About</A></LI>
+  <LI><A id="submitButton" 
+  href="https://halite.io/local_visualizer.php#">Submit</A><INPUT name="botFile" id="myFile" type="file"></LI>
+  <LI><A id="logoutButton" 
+  href="https://halite.io/local_visualizer.php#">Logout</A></LI></UL></FORM></DIV></DIV></NAV>
+<DIV id="messageBox"></DIV>
+<DIV tabindex="-1" class="modal fade" id="submitModal" role="dialog" 
+aria-labelledby="myModalLabel">
+<DIV class="modal-dialog" role="document">
+<DIV class="modal-content">
+<DIV class="modal-header">
+<H1 class="modal-title" id="myModalLabel">Halite Submission 
+Instructions</H1></DIV>
+<DIV class="modal-body">
+<H3>Name your main file <B>MyBot</B> with an appropriate file extension (e.g. 
+MyBot.java).</H3>
+<H3>Make sure that you aren't using stdout or stdin (print, cout, 
+System.out.print, etc), which will cause your bot to fail. Instead, use <A href="https://halite.io/guides_development.php">a 
+log file</A>.</H3>
+<H3>Upload a <B>zip file</B> of your source code.</H3>
+<H3>Once we have compiled your code, you will get an email 
+notification.</H3><BUTTON class="btn btn-primary" id="submitModalButton" type="button">Submit!</BUTTON> 
+            </DIV></DIV></DIV></DIV>
+<DIV class="pageContent text-center" id="pageContent">
+<DIV class="col-sm-12 text-center" id="dropZone"><SPAN class="glyphicon glyphicon-cloud-upload" 
+style="font-size: 10em;"></SPAN>                 
+<H2 style="margin-top: 20px;">Drop or upload a replay file here</H2><LABEL 
+class="btn btn-primary" for="filePicker">Select File</LABEL>                 
+<INPUT id="filePicker" style="display: none;" type="file">             
+</DIV></DIV></DIV>
+<SCRIPT src="Visualizer_php_files/jquery.min.js"></SCRIPT>
+     
+<SCRIPT src="Visualizer_php_files/bootstrap.min.js"></SCRIPT>
+     
+<SCRIPT src="Visualizer_php_files/seedrandom.min.js"></SCRIPT>
+     
+<SCRIPT src="Visualizer_php_files/xss.js"></SCRIPT>
+     
+<SCRIPT src="Visualizer_php_files/general.js"></SCRIPT>
+     
+<SCRIPT src="Visualizer_php_files/backend.js"></SCRIPT>
+     
+<SCRIPT src="Visualizer_php_files/pixi.min.js"></SCRIPT>
+     
+<SCRIPT src="Visualizer_php_files/parsereplay.js"></SCRIPT>
+     
+<SCRIPT src="Visualizer_php_files/visualizer.js"></SCRIPT>
+     
+<SCRIPT src="Visualizer_php_files/localVisualizer.js"></SCRIPT>
+ </BODY></HTML>
