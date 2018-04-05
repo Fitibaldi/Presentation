@@ -6,7 +6,6 @@ public class ConditionalOperators {
 		Scanner sc = new Scanner(System.in);
 		System.out.print("Please enter grade: ");
 		byte grade = sc.nextByte();
-//		byte grade = 4;
 
 		switch (grade) {
 		case 2:
